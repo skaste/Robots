@@ -1,4 +1,5 @@
 const client = require("./client");
+const { robots } = require("./robots");
 
 //drop tables for robots, task, and customers
 async function dropTables() {
@@ -6,7 +7,7 @@ async function dropTables() {
     console.log("Tables are being dropped");
     await client.query(`
 DROP TABLE IF EXISTS robots;
-DROP TABLES IF EXISTS tasks;
+DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS customers`);
   } catch (err) {
     console.log(err);
@@ -23,12 +24,11 @@ CREATE TABLE robots (
   id SERIAL PRIMARY KEY,
   name VARCHAR(30),
   model VARCHAR(30),
-  model VARCHAR(30),
   company_name VARCAHR(30),
   longevity_months INTEGER,
   is_child_safe BOOLEAN,
   cost DECIMAL,
-  release_date DATE,
+  release_date DATE
 );
 
 CREATE TABLE tasks (
@@ -41,7 +41,7 @@ CREATE TABLE customers (
   id SERIAL PRIMARY KEY,
   custom_name VARCHAR(30),
   customer_email VARCHAR(30),
-  would_recommend BOOLEAN, 
+  would_recommend BOOLEAN 
 );
 `);
   } catch (err) {
@@ -57,10 +57,7 @@ async function createInitialData() {
   try {
     console.log("Create Data in Table");
     await client.query(`
-    INSERT INTO robots (name, model, company_name, longevity_months, "is_child_safe", cost, release_date)
-    VALUES
-    ('Welder Worxs', 'WW12345', 'Robots R Us', 24, false, 2000.99, 2020-10-15),
-    ('Washer Works', 'MM12345', 'Robots Worx', 48, true, 100.50, 2020-11-15),
+
     `);
   } catch (err) {
     console.log(err);
@@ -74,17 +71,24 @@ async function createInitialData() {
 // return values from the inserted data set
 
 //build all tables and create initial data
-async function rebuildDB() {
+
+async function syncAndSeed() {
   try {
     client.connect();
+    console.log("Connected to DB");
+
     await dropTables();
+    console.log("Table deleted");
+
     await createTables();
-    await createInitialData();
+    console.log("Tables created");
+
+    // await createInitialData();
+    // console.log("created data");
+    console.log(new Date().toISOString().slice(0, 19).replace("T", " "));
   } catch (err) {
     console.log(err);
   }
 }
-
-module.exports = {
-  //export my {object}
-};
+syncAndSeed();
+module.exports = {};
