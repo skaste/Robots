@@ -1,11 +1,14 @@
 const client = require("./client");
 const { robots, createRobots } = require("./robots");
+const { customers, createCustomers } = require("./customers");
 
 //drop tables for robots, task, and customers
 async function dropTables() {
   try {
     console.log("Tables are being dropped");
     await client.query(`
+DROP TABLE IF EXISTS robot_tasks;
+DROP TABLE IF EXISTS robot_customer;
 DROP TABLE IF EXISTS robots;
 DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS customers`);
@@ -39,9 +42,21 @@ CREATE TABLE tasks (
 
 CREATE TABLE customers (
   id SERIAL PRIMARY KEY,
-  custom_name VARCHAR(30),
-  customer_email VARCHAR(30),
+  name VARCHAR(30),
+  email VARCHAR(30),
   would_recommend BOOLEAN 
+);
+
+CREATE TABLE robot_customer (
+  robot_id INTEGER REFERENCES robots(id),
+  customers_id INTEGER REFERENCES customers(id),
+  UNIQUE (robot_id, customers_id)
+);
+
+CREATE TABLE robot_tasks (
+  robot_id INTEGER REFERENCES robots(id),
+  tasks_id INTEGER REFERENCES tasks(id),
+  UNIQUE (robot_id, tasks_id)
 );
 `);
   } catch (err) {
@@ -135,6 +150,10 @@ async function syncAndSeed() {
       750,
       "2023-1-11"
     );
+
+    await createCustomers("Bob Marley", "bob.marley@bob.com", true);
+    await createCustomers("Billy Bob", "billy.bob@noteeth.com", true);
+    await createCustomers("Shoeless Joe", "joe@baseball.com", false);
 
     console.log(new Date().toISOString().slice(0, 19).replace("T", " "));
   } catch (err) {
