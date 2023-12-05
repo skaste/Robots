@@ -1,18 +1,64 @@
-const client = require('./client');
+const client = require("./client");
 
 //drop tables for robots, task, and customers
-
+async function dropTables() {
+  try {
+    console.log("Tables are being dropped");
+    await client.query(`
+DROP TABLE IF EXISTS robots;
+DROP TABLES IF EXISTS tasks;
+DROP TABLE IF EXISTS customers`);
+  } catch (err) {
+    console.log(err);
+  }
+}
 //build tables for robots, task, and customers
 
- //async await function with try catches because they call api:
+//async await function with try catches because they call api:
+async function createTables() {
+  try {
+    console.log("Build Tables");
+    await client.query(`
+CREATE TABLE robots (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(30),
+  model VARCHAR(30),
+  model VARCHAR(30),
+  company_name VARCAHR(30),
+  longevity_months INTEGER,
+  is_child_safe BOOLEAN,
+  cost DECIMAL,
+  release_date DATE,
+);
 
+CREATE TABLE tasks (
+  id SERIAL PRIMARY KEY,
+  task_name VARCHAR(30),
+  task_description TEXT
+);
+
+CREATE TABLE customers (
+  id SERIAL PRIMARY KEY,
+  custom_name VARCHAR(30),
+  customer_email VARCHAR(30),
+  would_recommend BOOLEAN, 
+);
+`);
+  } catch (err) {
+    console.log(err);
+  }
+}
 // CREATE TABLE robots ('');
 // CREATE TABLE tasks ('');
 // CREATE TABLE customers ('');
 
-
 //create initial data for robots, task, and customers
-
+async function createInitialData() {
+  try {
+  } catch (err) {
+    console.log(err);
+  }
+}
 // create an async await function with try catch and awaits client.query:
 
 // INSERT INTO robots ('name, model, company_name, longevity_months, is_child_safe, cost, release_date')
@@ -25,4 +71,3 @@ const client = require('./client');
 module.exports = {
   //export my {object}
 };
-
