@@ -12,7 +12,7 @@ const createRobots = async (
   try {
     await client.query(`
     INSERT INTO robots (name, model, company_name, longevity_months, is_child_safe, cost, release_date)
-    VALUES ('${name}', '${model}', '${company_name}', '${longevity_months}, '${is_child_safe}, '${cost}', '${release_date}')`);
+    VALUES ('${name}', '${model}', '${company_name}', '${longevity_months}', '${is_child_safe}', '${cost}', '${release_date}')`);
   } catch (err) {
     console.log(err);
   }

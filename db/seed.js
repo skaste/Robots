@@ -1,5 +1,5 @@
 const client = require("./client");
-const { robots } = require("./robots");
+const { robots, createRobots } = require("./robots");
 
 //drop tables for robots, task, and customers
 async function dropTables() {
@@ -83,8 +83,59 @@ async function syncAndSeed() {
     await createTables();
     console.log("Tables created");
 
-    // await createInitialData();
-    // console.log("created data");
+    await createInitialData();
+    console.log("created data");
+
+    await createRobots(
+      "Weirdo Weld",
+      "WW12345",
+      "Weldomatic",
+      24,
+      false,
+      1000,
+      "2023-12-05"
+    );
+
+    await createRobots(
+      "PowerWeld",
+      "ZZ12345",
+      "Weld Better",
+      48,
+      true,
+      10000,
+      "2023-11-14"
+    );
+
+    await createRobots(
+      "Kid Sitter",
+      "BB12345",
+      "Wish It Was True",
+      84,
+      true,
+      1000000,
+      "2023-10-10"
+    );
+
+    await createRobots(
+      "Food Cooker",
+      "BAKE123",
+      "Wish It Was True",
+      84,
+      true,
+      250,
+      "2023-10-11"
+    );
+
+    await createRobots(
+      "Bed Maker",
+      "KB12345",
+      "Like Made Beds",
+      120,
+      true,
+      750,
+      "2023-1-11"
+    );
+
     console.log(new Date().toISOString().slice(0, 19).replace("T", " "));
   } catch (err) {
     console.log(err);
