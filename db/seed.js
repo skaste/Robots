@@ -74,6 +74,16 @@ async function createInitialData() {
 // return values from the inserted data set
 
 //build all tables and create initial data
+async function rebuildDB() {
+  try {
+    client.connect();
+    await dropTables();
+    await createTables();
+    await createInitialData();
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 module.exports = {
   //export my {object}
