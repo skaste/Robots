@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require("./client.cjs");
 const { robots, createRobots } = require("./robots");
 const { customers, createCustomers } = require("./customers");
 const { tasks, createTasks } = require("./tasks");

@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require("./client.cjs");
 
 const createTasks = async (name, description) => {
   try {

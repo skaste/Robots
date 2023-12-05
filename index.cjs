@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 8081;
 
-const client = require("./db/client");
+const client = require("./db/client.cjs");
 client.connect();
 
 app.get("/", (req, res, next) => {

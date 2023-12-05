@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require("./client.cjs");
 
 const createCustomers = async (name, email, would_recommend) => {
   try {
