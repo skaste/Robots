@@ -55,6 +55,13 @@ CREATE TABLE customers (
 //create initial data for robots, task, and customers
 async function createInitialData() {
   try {
+    console.log("Create Data in Table");
+    await client.query(`
+    INSERT INTO robots (name, model, company_name, longevity_months, "is_child_safe", cost, release_date)
+    VALUES
+    ('Welder Worxs', 'WW12345', 'Robots R Us', 24, false, 2000.99, 2020-10-15),
+    ('Washer Works', 'MM12345', 'Robots Worx', 48, true, 100.50, 2020-11-15),
+    `);
   } catch (err) {
     console.log(err);
   }
