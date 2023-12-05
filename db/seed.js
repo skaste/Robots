@@ -1,6 +1,7 @@
 const client = require("./client");
 const { robots, createRobots } = require("./robots");
 const { customers, createCustomers } = require("./customers");
+const { tasks, createTasks } = require("./tasks");
 
 //drop tables for robots, task, and customers
 async function dropTables() {
@@ -36,8 +37,8 @@ CREATE TABLE robots (
 
 CREATE TABLE tasks (
   id SERIAL PRIMARY KEY,
-  task_name VARCHAR(30),
-  task_description TEXT
+  name VARCHAR(30),
+  description TEXT
 );
 
 CREATE TABLE customers (
@@ -154,6 +155,13 @@ async function syncAndSeed() {
     await createCustomers("Bob Marley", "bob.marley@bob.com", true);
     await createCustomers("Billy Bob", "billy.bob@noteeth.com", true);
     await createCustomers("Shoeless Joe", "joe@baseball.com", false);
+
+    await createTasks("make a bed", "makes the bed so you can be lazy");
+    await createTasks(
+      "watch kids",
+      "allows you to work without them constantly needing you"
+    );
+    await createTasks("weld metal", "allows faster cleaner welds autonomously");
 
     console.log(new Date().toISOString().slice(0, 19).replace("T", " "));
   } catch (err) {
