@@ -24,7 +24,7 @@ CREATE TABLE robots (
   id SERIAL PRIMARY KEY,
   name VARCHAR(30),
   model VARCHAR(30),
-  company_name VARCAHR(30),
+  company_name VARCHAR(30),
   longevity_months INTEGER,
   is_child_safe BOOLEAN,
   cost DECIMAL,
