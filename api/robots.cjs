@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { getAllRobots, getRobotById } = require("../db");
 
 //Get api robots
 router.get("/", async (req, res, next) => {
